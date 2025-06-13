@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('general_password');
+            // $table->string('general_password');
             $table->foreignId('super_admin_id')->constrained('super__admins')->onDelete('cascade');
             $table->timestamps();
         });

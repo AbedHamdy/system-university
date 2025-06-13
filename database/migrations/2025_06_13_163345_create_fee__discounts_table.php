@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('super__admins', function (Blueprint $table) {
+        Schema::create('fee__discounts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            // $table->string('general_password');
+            $table->foreignId('fee_id')->constrained('fees')->onDelete('cascade');
+            $table->integer('min_score');
+            $table->integer('max_score');
+            $table->integer('discount_percent');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('super__admins');
+        Schema::dropIfExists('fee__discounts');
     }
 };

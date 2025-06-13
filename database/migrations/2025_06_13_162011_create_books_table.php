@@ -11,21 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('super__admins', function (Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            // $table->string('general_password');
+            $table->string('title');
+            $table->string('url');
+            $table->foreignId("doctor_id")->constrained('doctors')->onDelete('cascade');
+            $table->foreignId("course_id")->constrained('courses')->onDelete('cascade');
             $table->timestamps();
         });
-    }
+    }   
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('super__admins');
+        Schema::dropIfExists('books');
     }
 };

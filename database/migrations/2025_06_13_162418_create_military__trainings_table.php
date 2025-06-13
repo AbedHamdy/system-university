@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('super__admins', function (Blueprint $table) {
+        Schema::create('military__trainings', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            // $table->string('general_password');
+            $table->foreignId("student_id")->constrained('students')->onDelete('cascade');
+            $table->integer("result")->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('super__admins');
+        Schema::dropIfExists('military__trainings');
     }
 };

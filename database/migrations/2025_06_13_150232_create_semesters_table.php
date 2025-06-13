@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('super__admins', function (Blueprint $table) {
+        Schema::create('semesters', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            // $table->string('general_password');
+            $table->integer('semester_number')->unique();
+            $table->foreignId('level_id')->constrained('levels')->onDelete('cascade');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->string('year');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('super__admins');
+        Schema::dropIfExists('semesters');
     }
 };
