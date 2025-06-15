@@ -16,8 +16,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string("image");
             // $table->string('general_password');
             $table->foreignId('super_admin_id')->constrained('super__admins')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            $table->foreignId('level_id')->constrained('levels')->onDelete('cascade');
+            // هنا السوبر ادمن بيحدد الادمن دا بيتحكم في اي قسم و اي مستوي
             $table->timestamps();
         });
     }

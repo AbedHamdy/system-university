@@ -1,25 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\SuperAdmin;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
-use App\Models\Doctor;
-use App\Models\Student;
 use Illuminate\Http\Request;
 
-class SuperAdminDashboardController extends Controller
+class LoginController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $admins = Admin::count();
-        $doctors = Doctor::count();
-        $students = Student::count();
-
-        return view("super_admin.views.dashboard" , compact("admins" ,"doctors" ,"students"));
+        //
     }
 
     /**
