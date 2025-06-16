@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->foreignId("super_admin_id")->constrained('super__admins')->onDelete('cascade');
+            $table->foreignId("super_admin_id")->constrained('super_admins')->onDelete('cascade');
             $table->foreignId("doctor_id")->constrained('doctors')->onDelete('cascade');
             $table->foreignId("semester_id")->constrained('semesters')->onDelete('cascade');
             $table->timestamps();

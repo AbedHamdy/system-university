@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Doctor;
 use App\Models\Student;
+use App\Models\SuperAdmin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SuperAdminDashboardController extends Controller
 {
@@ -19,7 +21,9 @@ class SuperAdminDashboardController extends Controller
         $doctors = Doctor::count();
         $students = Student::count();
 
-        return view("super_admin.views.dashboard" , compact("admins" ,"doctors" ,"students"));
+        $user = Auth::user();
+
+        return view("superadmin.views.dashboard" , compact("admins" ,"doctors" , "students" , "user"));
     }
 
     /**

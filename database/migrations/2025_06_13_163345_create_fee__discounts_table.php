@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fee__discounts', function (Blueprint $table) {
+        Schema::create('fee_discounts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('fee_id')->constrained('fees')->onDelete('cascade');
             $table->integer('min_score');
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fee__discounts');
+        Schema::dropIfExists('fee_discounts');
     }
 };

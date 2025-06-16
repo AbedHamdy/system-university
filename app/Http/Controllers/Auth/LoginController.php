@@ -3,63 +3,46 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CheckLoginRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function loginSuperAdmin()
     {
-        //
+        return view("superadmin.views.login_superadmin");
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function checkCredential(CheckLoginRequest $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+        $data = $request->validated();
+        // dd($data["role"]);
+        if(Auth::guard($data["role"])->attempt(
+[
+                'email' => $data['email'],
+                'password' => $data['password'],
+            ]))
+        {
+            $user = Auth::guard($data["role"])->user();
+            // dd($user);
+            return redirect()->route("dashboard_".$data['role']);
+        }
+        // dd("Invalid credentials");
+        return redirect()->back()->with(['error' => 'Invalid password']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy()
     {
-        //
+        // $user = Auth::user();
+        // dd($user);
+        Auth::logout();
+        return redirect()->route("home");
     }
 }

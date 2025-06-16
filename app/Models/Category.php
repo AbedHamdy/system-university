@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'super_admin_id',
+    ];
+
+    public function superAdmin()
+    {
+        return $this->belongsTo(SuperAdmin::class);
+    }
 }

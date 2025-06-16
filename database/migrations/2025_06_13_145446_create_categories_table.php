@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->foreignId('super_admin_id')->constrained('super__admins')->onDelete('cascade');
+            $table->foreignId('super_admin_id')->constrained('super_admins')->onDelete('cascade');
             $table->timestamps();
         });
     }

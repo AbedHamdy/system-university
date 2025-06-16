@@ -196,3 +196,71 @@ body.sidebar-closed .main-content {
 .sidebar .submenu a:hover:before {
     transform: translateY(-50%) scale(1);
 }
+
+.content-wrapper {
+    padding-top: 50px; /* مسافة من اعلي */
+}
+
+.gradient-header {
+    background: linear-gradient(90deg, #8B0000, #000000);
+    color: #fff !important;
+}
+.gradient-table th, .gradient-table td {
+    vertical-align: middle !important;
+    text-align: center;
+}
+.gradient-table tbody tr:nth-child(even) {
+    background: #222 !important;
+    color: #fff;
+}
+.gradient-table tbody tr:nth-child(odd) {
+    background: #111 !important;
+    color: #fff;
+}
+.gradient-title {
+    background: linear-gradient(90deg, #8B0000 0%, #000 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+/* Custom Alert Styling to match SuperAdmin theme */
+.custom-alert-info {
+    background: linear-gradient(to right, #8e2de2, #4a00e0);
+    color: #ffffff;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(142, 45, 226, 0.2);
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    margin: 20px 0;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Icon styling */
+.custom-alert-info i {
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+/* Animation for the alert */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover effect */
+.custom-alert-info:hover {
+    background: linear-gradient(to right, #9b4deb, #5711e7);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}

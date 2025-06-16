@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string("image");
             // $table->string('general_password');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->foreignId('super_admin_id')->constrained('super__admins')->onDelete('cascade');
+            $table->foreignId('super_admin_id')->constrained('super_admins')->onDelete('cascade');
             $table->timestamps();
         });
     }

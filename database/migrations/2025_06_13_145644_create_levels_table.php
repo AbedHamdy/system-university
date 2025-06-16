@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('number_level');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->foreignId("super_admin_id")->constrained('super__admins')->onDelete('cascade');
+            $table->foreignId("super_admin_id")->constrained('super_admins')->onDelete('cascade');
             $table->timestamps();
         });
     }

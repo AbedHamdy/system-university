@@ -20,7 +20,7 @@ class DoctorManagementController extends Controller
      */
     public function create()
     {
-        //
+        return view("superadmin.views.doctor.create");
     }
 
     /**

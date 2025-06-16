@@ -30,13 +30,16 @@ class GeneralPasswordController extends Controller
             return redirect()->back()->with(['error' => 'Invalid General Password']);
         }
 
-        $type = $generalPassword->accessible_type;
-        $model = class_basename($type);                      // هنا جبت المودل بس جمع
-        $model = substr($model, 0, -1);     // هنا حذفت الحرف الاخير من المودل
+        // dd($generalPassword);
 
+        $type = $generalPassword->accessible_type;
+        $model = class_basename($type);   // هنا جبت المودل بس جمع
+        // dd($model);
+        $model = strtolower($model);
         // Ensure the view path matches your resources/views directory structure
         $viewPath = strtolower($model) . '.views.login_' . strtolower($model); // حولت المودل لحروف صغيرة
-        return view($viewPath);
+        // dd($viewPath);
+        return redirect()->route("show_login_$model");
     }
 
     /**
