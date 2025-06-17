@@ -1,32 +1,55 @@
+{{-- @dd($categories) --}}
 @extends('superadmin.layouts.app')
-@section('title', 'Create Something')
+@section('title', 'Create Doctor')
 
 @section('content')
-<div class="container mt-4">
+<div class="container mt-5">
     <div class="card">
         <div class="card-header bg-danger text-white">
-            <h5 class="mb-0">Create New Item</h5>
+            <h5 class="mb-0 text-center">Create Doctor</h5>
         </div>
         <div class="card-body">
-            <form action="#" method="POST" enctype="multipart/form-data">
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            <form action="{{ route("store_doctor") }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <!-- Name -->
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" name="name" class="form-control" required>
+                    <input type="text" name="name" class="form-control" value="{{ old('name') }}"  placeholder="Enter doctor name" required>
                 </div>
 
                 <!-- Email -->
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" required>
+                    <input type="email" name="email" class="form-control" value="{{ old('email') }}"  placeholder="Enter doctor email" required>
                 </div>
 
                 <!-- Password -->
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" name="password" class="form-control" required>
+                    <input type="password" name="password" class="form-control" placeholder="Enter doctor password" required>
                 </div>
 
                 <!-- Image -->
@@ -36,7 +59,7 @@
                 </div>
 
                 <!-- Category -->
-                {{-- <div class="mb-3">
+                <div class="mb-3">
                     <label for="category_id" class="form-label">Category</label>
                     <select name="category_id" class="form-select" required>
                         <option value="" disabled selected>Select a Category</option>
@@ -44,21 +67,10 @@
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
-                </div> --}}
-
-                <!-- Super Admin -->
-                {{-- <div class="mb-3">
-                    <label for="super_admin_id" class="form-label">Super Admin</label>
-                    <select name="super_admin_id" class="form-select" required>
-                        <option value="" disabled selected>Select a Super Admin</option>
-                        @foreach ($superAdmins as $admin)
-                            <option value="{{ $admin->id }}">{{ $admin->name }}</option>
-                        @endforeach
-                    </select>
-                </div> --}}
+                </div>
 
                 <!-- Submit -->
-                <button type="submit" class="btn btn-danger">Submit</button>
+                <button type="submit" class="btn btn-danger d-block mx-auto">Submit</button>
             </form>
         </div>
     </div>

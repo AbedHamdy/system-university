@@ -43,14 +43,32 @@
         </a>
         <div class="collapse" id="levelSubmenu" data-bs-parent="#sidebar">
             <div class="submenu">
-                <a href="#">
+                <a href="{{ route("all_levels") }}">
                     <i class="fas fa-list"></i> All Levels
                 </a>
-                <a href="#">
+                <a href="{{ route("create_level") }}">
                     <i class="fas fa-plus"></i> Create Level
                 </a>
-                <a href="#">
+                <a href="{{ route("my_levels") }}">
                     <i class="fas fa-edit"></i> Manage Levels
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Semester Dropdown -->
+    <div class="sidebar-item">
+        <a href="#semesterSubmenu" data-bs-toggle="collapse" class="dropdown-toggle" aria-expanded="false">
+            <i class="fas fa-calendar-alt"></i> Semester
+            <i class="fas fa-chevron-down ms-auto"></i>
+        </a>
+        <div class="collapse" id="semesterSubmenu" data-bs-parent="#sidebar">
+            <div class="submenu">
+                <a href="{{ route("all_semesters") }}">
+                    <i class="fas fa-list"></i> All Semesters
+                </a>
+                <a href="{{ route("create_semester") }}">
+                    <i class="fas fa-plus"></i> Create Semester
                 </a>
             </div>
         </div>
@@ -64,11 +82,32 @@
         </a>
         <div class="collapse" id="doctorSubmenu" data-bs-parent="#sidebar">
             <div class="submenu">
+                <a href="{{ route('all_doctors') }}">
+                    <i class="fas fa-list"></i> All Doctors
+                </a>
                 <a href="{{ route('create_doctor') }}">
                     <i class="fas fa-plus"></i> Create Doctor
                 </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Dropdown -->
+    <div class="sidebar-item">
+        <a href="#courseSubmenu" data-bs-toggle="collapse" class="dropdown-toggle" aria-expanded="false">
+            <i class="fas fa-book"></i> Course
+            <i class="fas fa-chevron-down ms-auto"></i>
+        </a>
+        <div class="collapse" id="courseSubmenu" data-bs-parent="#sidebar">
+            <div class="submenu">
+                <a href="">
+                    <i class="fas fa-list"></i> All Courses
+                </a>
+                <a href="{{ route("create_course") }}">
+                    <i class="fas fa-plus"></i> Create Course
+                </a>
                 <a href="#">
-                    <i class="fas fa-edit"></i> Manage Doctors
+                    <i class="fas fa-edit"></i> Manage Courses
                 </a>
             </div>
         </div>

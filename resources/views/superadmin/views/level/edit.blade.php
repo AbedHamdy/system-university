@@ -1,12 +1,11 @@
 @extends('superadmin.layouts.app')
-@section('title', 'Edit Category')
+@section('title', 'Edit Level')
 
 @section('content')
-<!-- Center form vertically and horizontally -->
 <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
     <div class="card shadow" style="width: 500px;">
         <div class="card-header text-white" style="background-color: #c0392b;">
-            <h5 class="mb-0">Add Name</h5>
+            <h5 class="mb-0 text-center">Edit Level</h5>
         </div>
         <div class="card-body">
             @if(session('success'))
@@ -32,25 +31,31 @@
                 </div>
             @endif
 
-            <form action="{{ route("update_category", $category->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to update this category?") }}" method="POST">
+            <form action="{{ route('update_level', $level->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <!-- Name Field -->
+
+                <!-- Category Name Display -->
                 <div class="mb-3">
-                    <label for="name" class="form-label">Category Name</label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        class="form-control"
-                        value="{{ old('name', $category->name) }}"
-                        placeholder="Enter name"
-                        required>
+                    <label class="form-label">Category Name</label>
+                    <input type="text" class="form-control" value="{{ $level->category->name }}" readonly>
                 </div>
 
-                <!-- Submit Button -->
+                <!-- Level Number Input -->
+                <div class="mb-3">
+                    <label for="level_number" class="form-label">Level Number</label>
+                    <input
+                        type="number"
+                        id="level_number"
+                        name="level_number"
+                        class="form-control"
+                        required
+                        min="1"
+                        value="{{ $level->number_level }}">
+                </div>
+
                 <button type="submit" class="btn text-white d-block mx-auto" style="background-color: #c0392b;">
-                    Submit
+                    Update
                 </button>
             </form>
         </div>

@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
     <div class="card shadow" style="width: 500px;">
         <div class="card-header text-white" style="background-color: #c0392b;">
-            <h5 class="mb-0">Add Name</h5>
+            <h5 class="mb-0 text-center">Add Category</h5>
         </div>
         <div class="card-body">
             @if(session('success'))
@@ -48,7 +48,7 @@
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="btn text-white" style="background-color: #c0392b;">
+                <button type="submit" class="btn text-white d-block mx-auto" style="background-color: #c0392b;">
                     Submit
                 </button>
             </form>

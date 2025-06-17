@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Doctor;
+use App\Models\Level;
+use App\Models\Semester;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -20,9 +23,14 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        $doctors = Doctor::with('category')->get();
+        if (!$doctors)
+        {
+            return redirect()->back()->with('error', 'Please create a doctor first.');
+        }
+        return view('superadmin.views.course.create', compact('doctors'));
     }
-
+    
     /**
      * Store a newly created resource in storage.
      */

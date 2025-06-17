@@ -18,4 +18,14 @@ class Category extends Model
     {
         return $this->belongsTo(SuperAdmin::class);
     }
+
+    public function levels()
+    {
+        return $this->hasMany(Level::class);
+    }
+
+    public function doctors()
+    {
+        return $this->hasMany(Doctor::class);
+    }
 }

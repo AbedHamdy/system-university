@@ -61,8 +61,8 @@ class CategoryController extends Controller
      */
     public function show()
     {
-        $superAdmin = auth()->user(); // السوبر أدمن الحالي
-        $categories = $superAdmin->categories()->latest()->get(); // التخصصات المرتبطة بيه
+        $superAdmin = auth()->user();                              // السوبر أدمن الحالي
+        $categories = $superAdmin->categories()->latest()->get();  // التخصصات المرتبطة بيه
 
         return view('superadmin.views.category.my_categories', compact('categories'));
 
