@@ -43,7 +43,7 @@
                         id="name"
                         name="name"
                         class="form-control"
-                        placeholder="Enter name"
+                        placeholder="Enter category name"
                         required>
                 </div>
 

@@ -52,8 +52,11 @@ class CategoryController extends Controller
         {
             return redirect()->back()->with("error", "Failed to create category");
         }
+        // dd($category);
 
-        return redirect()->route("create_category")->with("success", "Category created successfully");
+        return redirect()->route('create_level', [
+            'category_id' => $category->id,
+        ])->with('success', 'Category created successfully');
     }
 
     /**
@@ -90,7 +93,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreCategoryRequest $request, string $id)
+    public function update(StoreCategoryRequest $request, $id)
     {
         $category = Category::find($id);
         if (!$category)
@@ -112,14 +115,18 @@ class CategoryController extends Controller
         {
             return redirect()->back()->with('error', 'Failed to update category.');
         }
+        // dd($category);
+        // return redirect()->route('my_categories')->with('success', 'Category updated successfully.');
+        return redirect()->route('edit_level', [
+            'category_id' => $id,
+        ])->with('success', 'Category updated successfully.');
 
-        return redirect()->route('my_categories')->with('success', 'Category updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $category = Category::find($id);
         if (!$category)

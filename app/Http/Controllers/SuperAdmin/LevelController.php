@@ -7,29 +7,24 @@ use App\Http\Requests\StoreLevelRequest;
 use App\Http\Requests\UpdateLevelRequest;
 use App\Models\Category;
 use App\Models\Level;
+use App\Models\Semester;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class LevelController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function create(Request $request)
     {
-        $categories = Category::withCount('levels')->get();
-        return view('superadmin.views.level.index', compact('categories'));
-    }
+        $data = $request->validate([
+            'category_id' => 'required|integer|exists:categories,id',
+        ]);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $categories = Category::doesntHave('levels')
-            ->where('super_admin_id', auth()->id())
-            ->get();
-        return view('superadmin.views.level.create' , compact('categories'));
+        $category = Category::find($data["category_id"]);
+        if (!$category)
+        {
+            return redirect()->route("create_category")->with('error', 'Category not found');
+        }
+        return view('superadmin.views.level.create', compact('category'));
     }
 
     /**
@@ -40,137 +35,123 @@ class LevelController extends Controller
         $data = $request->validated();
         // dd($data);
         $category = Category::find($data['category_id']);
-        if(!$category)
-        {
-            return redirect()->back()->with('error' , 'Category not found');
+        if (!$category) {
+            return redirect()->route("create_category")->with('error', 'Category not found');
         }
 
         $user = auth()->user();
-        if ($category->super_admin_id !== auth()->id())
-        {
-            return redirect()->back()->with('error', 'You do not have permission to add a level to this category');
-        }
-
-        if ($category->levels()->exists())
-        {
-            return redirect()->back()->with('error', 'This category already has levels.');
-        }
-
-        $levelCount = (int)$data['level_number'];
 
         try {
-            //  هنا نبدأ الـ transaction
             DB::beginTransaction();
 
-            for ($i = 1; $i <= $levelCount; $i++) {
-                Level::create([
+            $createdLevels = [];
+
+            for ($i = 1; $i <= $data['level_number']; $i++)
+            {
+                $level = Level::create([
                     'category_id' => $data['category_id'],
                     'number_level' => $i,
                     'super_admin_id' => $user->id,
                 ]);
+
+                if (!$level)
+                {
+                    throw new \Exception("Failed to create level {$i}");
+                }
+
+                $createdLevels[] = $level;
+                for ($j = 1; $j <= 3; $j++)
+                {
+                    $semester = Semester::create([
+                        'semester_number' => $j,
+                        'level_id' => $level->id,
+                    ]);
+
+                    if (!$semester)
+                    {
+                        throw new \Exception("Failed to create semester {$j} for level {$i}");
+                    }
+                }
             }
 
-            //  لو كله عدى تمام، نثبت العملية
             DB::commit();
-
-            return redirect()->route('create_level')->with('success', 'Levels created successfully');
-
+            return redirect()->route('create_category')->with('success', 'Levels and Semesters created successfully');
         }
         catch (\Exception $e)
         {
-            // لو حصل أي خطأ، نرجع كل حاجة
             DB::rollBack();
 
-            return redirect()->back()->with('error', 'Failed to create levels: ' . $e->getMessage());
+            foreach ($createdLevels as $level)
+            {
+                Semester::where('level_id', $level->id)->delete();
+                $level->delete();
+            }
+
+            return redirect()->back()->with('error', 'Something went wrong: please try again');
         }
-
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show()
+    public function edit(Request $request)
     {
-        $user = auth()->user();
-        $categories = Category::with(['levels'])
-            ->withCount('levels')
-            ->where('super_admin_id', $user->id)
-            ->get();
+        $data = $request->validate([
+            'category_id' => 'required|integer|exists:categories,id',
+        ]);
 
-        return view('superadmin.views.level.my_levels', compact('categories'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    // public function edit($id)
-    // {
-    //     // dd($id);
-    //     $level = Level::with('category')->find($id);
-
-    //     if (!$level)
-    //     {
-    //         return redirect()->back()->with('error', 'Level not found');
-    //     }
-
-    //     return view('superadmin.views.level.edit', compact('level'));
-    // }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    // public function update(UpdateLevelRequest $request, $id)
-    // {
-    //     $data = $request->validated();
-    //     $level = Level::find($id);
-    //     if (!$level)
-    //     {
-    //         return redirect()->back()->with('error', 'Level not found');
-    //     }
-
-    //     if ($level->super_admin_id !== auth()->id())
-    //     {
-    //         return redirect()->route('my_categories')->with('error', 'You do not have permission to update this category.');
-    //     }
-
-    //     $level = Level::where("id" , $id)->update([
-    //         'number_level' => $data['level_number'],
-    //     ]);
-    //     if (!$level)
-    //     {
-    //         return redirect()->back()->with('error', 'Failed to update level.');
-    //     }
-
-    //     return redirect()->route('my_levels')->with('success', 'Level updated successfully');
-    // }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        // dd($id);
-        $category = Category::find($id);
+        $category = Category::withCount("levels")->find($data["category_id"]);
 
         if (!$category)
         {
-            return redirect()->back()->with('error', 'Category not found.');
+            return redirect()->route("create_category")->with('error', 'Category not found');
         }
-
-        if ($category->super_admin_id !== auth()->id())
-        {
-            return redirect()->back()->with('error', 'You do not have permission to delete levels for this category.');
-        }
-
-        // حذف كل المستويات التابعة لهذا التخصص
-        $deleted = $category->levels()->delete();
-
-        if ($deleted)
-        {
-            return redirect()->back()->with('success', 'All levels for this category have been deleted.');
-        }
-
-        return redirect()->back()->with('error', 'Failed to delete levels.');
-
+        return view('superadmin.views.level.edit', compact('category'));
     }
+
+    public function update(StoreLevelRequest $request)
+    {
+        $data = $request->validated();
+        // dd($data);
+
+        $category = Category::find($data['category_id']);
+        if (!$category)
+        {
+            return redirect()->route('create_category')->with('error', 'Category not found');
+        }
+
+        DB::beginTransaction();
+        try {
+            $oldLevels = Level::where('category_id', $category->id)->get();
+            foreach ($oldLevels as $level)
+            {
+                Semester::where('level_id', $level->id)->delete();
+                $level->delete();
+            }
+
+            for ($i = 1; $i <= $data['level_number']; $i++)
+            {
+                $level = Level::create([
+                    'category_id' => $category->id,
+                    'number_level' => $i,
+                    'super_admin_id' => auth()->id(),
+                ]);
+
+                for ($j = 1; $j <= 3; $j++)
+                {
+                    Semester::create([
+                        'level_id' => $level->id,
+                        'semester_number' => $j,
+                    ]);
+                }
+            }
+
+            DB::commit();
+            return redirect()->route('my_categories')->with('success', 'Levels and Semesters updated successfully');
+        }
+        catch (\Exception $e)
+        {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Failed to update levels , please try again.');
+        }
+    }
+
+
 }

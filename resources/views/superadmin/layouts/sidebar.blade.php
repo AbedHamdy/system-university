@@ -13,6 +13,11 @@
             </div>
         </div>
     </div>
+    {{-- <div class="sidebar-item">
+        <a href="{{ route('dashboard_SuperAdmin') }}" class="d-flex align-items-center">
+            <i class="fas fa-tachometer-alt me-2"></i> <span>Dashboard</span>
+        </a>
+    </div> --}}
 
     <!-- Category Dropdown -->
     <div class="sidebar-item">
@@ -28,47 +33,8 @@
                 <a href="{{ route('create_category') }}">
                     <i class="fas fa-plus"></i> Create Category
                 </a>
-                <a href="{{ route("my_categories") }}">
+                <a href="{{ route('my_categories') }}">
                     <i class="fas fa-edit"></i> Manage Categories
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Level Dropdown  -->
-    <div class="sidebar-item">
-        <a href="#levelSubmenu" data-bs-toggle="collapse" class="dropdown-toggle" aria-expanded="false">
-            <i class="fas fa-layer-group"></i> Level
-            <i class="fas fa-chevron-down ms-auto"></i>
-        </a>
-        <div class="collapse" id="levelSubmenu" data-bs-parent="#sidebar">
-            <div class="submenu">
-                <a href="{{ route("all_levels") }}">
-                    <i class="fas fa-list"></i> All Levels
-                </a>
-                <a href="{{ route("create_level") }}">
-                    <i class="fas fa-plus"></i> Create Level
-                </a>
-                <a href="{{ route("my_levels") }}">
-                    <i class="fas fa-edit"></i> Manage Levels
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Semester Dropdown -->
-    <div class="sidebar-item">
-        <a href="#semesterSubmenu" data-bs-toggle="collapse" class="dropdown-toggle" aria-expanded="false">
-            <i class="fas fa-calendar-alt"></i> Semester
-            <i class="fas fa-chevron-down ms-auto"></i>
-        </a>
-        <div class="collapse" id="semesterSubmenu" data-bs-parent="#sidebar">
-            <div class="submenu">
-                <a href="{{ route("all_semesters") }}">
-                    <i class="fas fa-list"></i> All Semesters
-                </a>
-                <a href="{{ route("create_semester") }}">
-                    <i class="fas fa-plus"></i> Create Semester
                 </a>
             </div>
         </div>
@@ -100,14 +66,11 @@
         </a>
         <div class="collapse" id="courseSubmenu" data-bs-parent="#sidebar">
             <div class="submenu">
-                <a href="">
+                <a href="{{ route("all_courses") }}">
                     <i class="fas fa-list"></i> All Courses
                 </a>
-                <a href="{{ route("create_course") }}">
+                <a href="{{ route('create_course') }}">
                     <i class="fas fa-plus"></i> Create Course
-                </a>
-                <a href="#">
-                    <i class="fas fa-edit"></i> Manage Courses
                 </a>
             </div>
         </div>
@@ -121,15 +84,16 @@
         </a>
         <div class="collapse" id="adminSubmenu" data-bs-parent="#sidebar">
             <div class="submenu">
-                <a href="#">
-                    <i class="fas fa-plus"></i> Create Admin
+                <a href="{{ route("all_admins") }}">
+                    <i class="fas fa-list"></i> All Admins
                 </a>
-                <a href="#">
-                    <i class="fas fa-edit"></i> Manage Admins
+                <a href="{{ route("create_admin") }}">
+                    <i class="fas fa-plus"></i> Create Admin
                 </a>
             </div>
         </div>
     </div>
+
 
     <!-- Statistics Link -->
     <a href="#">

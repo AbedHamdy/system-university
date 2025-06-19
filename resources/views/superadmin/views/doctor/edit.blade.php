@@ -4,7 +4,7 @@
 @section('content')
     <div class="container mt-5">
         <div class="card">
-            <div class="card-header bg-danger text-white">
+            <div class="card-header bg-danger text-white" style="background: linear-gradient(145deg, #8B0000, #800000);">
                 <h5 class="mb-0 text-center">Edit Doctor</h5>
             </div>
             <div class="card-body">
@@ -86,7 +86,7 @@
                     </div>
 
                     <!-- Submit -->
-                    <button type="submit" class="btn btn-danger d-block mx-auto">Update</button>
+                    <button type="submit" class="btn btn-danger d-block mx-auto" style="background: linear-gradient(145deg, #8B0000, #800000);">Update</button>
                 </form>
             </div>
         </div>

@@ -21,13 +21,14 @@ class DoctorManagementController extends Controller
     public function index(Request $request)
     {
         $validated = $request->validate(
-            [
+     [
                 'category_id' => ['nullable', 'integer', 'exists:categories,id'],
             ]
         );
         $query = Doctor::with('category');
 
-        if ($request->filled('category_id')) {
+        if ($request->filled('category_id'))
+        {
             $query->where('category_id', $request->category_id);
         }
 

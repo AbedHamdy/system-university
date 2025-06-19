@@ -10,8 +10,8 @@ class Level extends Model
     use HasFactory;
 
     protected $fillable = [
-        'category_id',
         'number_level',
+        'category_id',
         'super_admin_id',
     ];
 

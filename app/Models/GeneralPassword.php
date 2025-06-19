@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class GeneralPassword extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        "general_code",
+        "accessible_type",
+        "accessible_id",
+    ];
 
     public function accessible()
     {
