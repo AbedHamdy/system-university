@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDoctorRequest;
 use App\Models\Category;
 use App\Models\Doctor;
+use App\Models\GeneralPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 // use Illuminate\Support\Facades\File as FacadesFile;
@@ -102,6 +103,22 @@ class DoctorManagementController extends Controller
 
             if (!$doctor) {
                 throw new \Exception('Failed to create doctor');
+            }
+
+
+            do
+            {
+                $code = random_int(10000, 99999);
+            }
+            while (GeneralPassword::where('general_code', $code)->exists());
+            $general_pss = GeneralPassword::create([
+                'general_code' => $code,
+                'accessible_type' => Doctor::class,
+                'accessible_id' => $doctor->id,
+            ]);
+            if (!$general_pss)
+            {
+                throw new \Exception('Failed to create general password');
             }
 
             DB::commit();
