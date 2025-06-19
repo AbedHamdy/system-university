@@ -32,7 +32,7 @@ class DoctorManagementController extends Controller
             $query->where('category_id', $request->category_id);
         }
 
-        $doctors = $query->get();
+        $doctors = $query->paginate();;
         $categories = Category::all();
 
         return view('superadmin.views.doctor.index', compact('doctors', 'categories'));

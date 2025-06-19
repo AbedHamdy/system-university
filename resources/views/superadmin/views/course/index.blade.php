@@ -77,8 +77,10 @@
                     </tbody>
                 </table>
             </div>
-            <div class="d-flex justify-content-center mt-4">
-                {{ $courses->withQueryString()->links() }}
+            <div class="pagination-container">
+                <div class="d-flex justify-content-end">
+                    {{ $courses->links('pagination::bootstrap-5') }}
+                </div>
             </div>
         @endif
     </div>

@@ -29,7 +29,7 @@ class AdminManagementController extends Controller
                 function ($query) use ($categoryId) {
                     $query->where('category_id', $categoryId);
                 }
-            )->get();
+            )->paginate();
 
         return view('superadmin.views.admin.index', compact('admins', 'categories'));
     }

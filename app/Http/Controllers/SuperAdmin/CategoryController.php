@@ -16,7 +16,7 @@ class CategoryController extends Controller
     {
         $categories = Category::with("superAdmin")
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate();
         // dd($categories);
         return view("superadmin.views.category.index", compact("categories"));
     }
@@ -65,7 +65,7 @@ class CategoryController extends Controller
     public function show()
     {
         $superAdmin = auth()->user();                              // السوبر أدمن الحالي
-        $categories = $superAdmin->categories()->latest()->get();  // التخصصات المرتبطة بيه
+        $categories = $superAdmin->categories()->latest()->paginate();  // التخصصات المرتبطة بيه
 
         return view('superadmin.views.category.my_categories', compact('categories'));
 

@@ -4,7 +4,7 @@
 @section('content')
     <div class="container mt-5">
         <h2 class="mb-5 text-center gradient-title">My Categories</h2>
-        @if(session('success'))
+        @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -42,9 +42,12 @@
                                 <td>{{ $category->superAdmin->name ?? 'Unknown' }}</td>
                                 <td>{{ $category->created_at->format('Y-m-d') }}</td>
                                 <td>
-                                    <a href="{{ route('edit_category', $category->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="{{ route('edit_category', $category->id) }}"
+                                        class="btn btn-sm btn-warning">Edit</a>
 
-                                    <form action="{{ route('delete_category', $category->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this category?');">
+                                    <form action="{{ route('delete_category', $category->id) }}" method="POST"
+                                        class="d-inline"
+                                        onsubmit="return confirm('Are you sure you want to delete this category?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -54,6 +57,11 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="pagination-container">
+                    <div class="d-flex justify-content-end">
+                        {{ $categories->links('pagination::bootstrap-5') }}
+                    </div>
+                </div>
             </div>
         @endif
     </div>

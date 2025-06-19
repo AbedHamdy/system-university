@@ -94,6 +94,13 @@
         </div>
     </div>
 
+    <!-- Select Category and Assign Courses to Levels -->
+    <div class="sidebar-item">
+        <a href="{{ route("select_category") }}" class="d-flex align-items-center">
+            <i class="fas fa-layer-group me-2"></i>
+            <span>Assign Courses</span>
+        </a>
+    </div>
 
     <!-- Statistics Link -->
     <a href="#">

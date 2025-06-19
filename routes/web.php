@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssignCoursesController;
 use App\Http\Controllers\Auth\GeneralPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\SuperAdmin\AdminManagementController;
@@ -74,7 +75,12 @@ Route::middleware(['auth:SuperAdmin'])->group(function () {
     Route::post("/store/admin" , [AdminManagementController::class, "store"])->name("store_admin");
     Route::get('/edit/admin/{id}', [AdminManagementController::class, 'edit'])->name('edit_admin');
     Route::put('/update/admin/{id}', [AdminManagementController::class, 'update'])->name('update_admin');
-Route::delete('/delete/admin/{id}', [AdminManagementController::class, 'destroy'])->name('delete_admin');
+    Route::delete('/delete/admin/{id}', [AdminManagementController::class, 'destroy'])->name('delete_admin');
+
+    Route::get("/select_category", [AssignCoursesController::class , "index"])->name("select_category");
+    Route::get("/view/level/for/category/{id}", [AssignCoursesController::class , "show"])->name("view_level_for_category");
+    Route::get('/assign/courses/for/level', [AssignCoursesController::class, 'assign'])->name('go_to_assign_courses');
+    Route::post('/assign/courses', [AssignCoursesController::class, 'store'])->name('assign_courses');
 
 });
 

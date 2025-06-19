@@ -32,6 +32,11 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="pagination-container">
+                    <div class="d-flex justify-content-end">
+                        {{ $categories->links('pagination::bootstrap-5') }}
+                    </div>
+                </div>
             </div>
         @endif
     </div>

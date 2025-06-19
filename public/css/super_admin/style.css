@@ -264,3 +264,44 @@ body.sidebar-closed .main-content {
     transform: translateY(-2px);
     transition: all 0.3s ease;
 }
+
+/* Pagination Styles */
+.pagination {
+    margin: 0;
+    gap: 5px;
+}
+
+.pagination .page-item .page-link {
+    color: var(--primary-color);
+    border: 1px solid #dee2e6;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.pagination .page-item.active .page-link {
+    background: linear-gradient(to right, var(--primary-color), var(--primary-darker));
+    border-color: var(--primary-color);
+    color: var(--text-light);
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border-color: var(--primary-color);
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+    color: #6c757d;
+}
+
+/* Add spacing for the pagination container */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+}
