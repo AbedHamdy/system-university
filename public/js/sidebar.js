@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
     dropdowns.forEach(dropdown => {
         dropdown.addEventListener('click', function() {
             const arrow = this.querySelector('.fa-chevron-down');
-            arrow.style.transform = this.getAttribute('aria-expanded') === 'true' 
-                ? 'rotate(0deg)' 
+            arrow.style.transform = this.getAttribute('aria-expanded') === 'true'
+                ? 'rotate(0deg)'
                 : 'rotate(180deg)';
         });
     });
@@ -35,3 +35,4 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', handleResize);
     handleResize(); // Initial check
 });
+

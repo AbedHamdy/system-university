@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\AssignCoursesController;
 use App\Http\Controllers\Auth\GeneralPasswordController;
 use App\Http\Controllers\Auth\LoginController;
@@ -36,7 +37,7 @@ Route::get("show_login_super_admin" , [LoginController::class, "loginSuperAdmin"
 Route::post("/login" , [LoginController::class, "checkCredential"])->name("login_super_admin");
 
 Route::middleware(['auth:SuperAdmin'])->group(function () {
-    Route::get("/dashboard_super_admin" , [SuperAdminDashboardController::class, "index"])->name("dashboard_SuperAdmin");
+    Route::get("/dashboard/super_admin" , [SuperAdminDashboardController::class, "index"])->name("dashboard_SuperAdmin");
 
     Route::get("/all_categories" , [CategoryController::class, "index"])->name("all_categories");
     Route::get("/create/category" , [CategoryController::class, "create"])->name("create_category");
@@ -83,5 +84,7 @@ Route::middleware(['auth:SuperAdmin'])->group(function () {
     Route::post('/assign/courses', [AssignCoursesController::class, 'store'])->name('assign_courses');
 
 });
+
+Route::get("/dashboard/admin" , [AdminDashboardController::class, "index"])->name("dashboard_admin");
 
 Route::post("/logout" , [LoginController::class, "destroy"])->name("logout_super_admin");
