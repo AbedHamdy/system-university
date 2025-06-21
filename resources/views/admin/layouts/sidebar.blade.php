@@ -1,23 +1,25 @@
-<nav class="sidebar" id="sidebar">
-    <ul>
-        <li>
-            <i class="fas fa-home me-2"></i> Dashboard
-        </li>
+<div class="sidebar" id="sidebar">
+    <a href="{{ route("dashboard_Admin") }}"><i class="fas fa-home"></i> Dashboard</a>
 
-        <li class="dropdown" id="studentDropdown">
-            <i class="fas fa-user-graduate me-2"></i> Student
-            <ul class="dropdown-menu">
-                <li><i class="fas fa-plus me-2"></i> Add</li>
-                <li><i class="fas fa-edit me-2"></i> Edit</li>
-            </ul>
-        </li>
+    <div class="dropdown">
+        <a href="#" onclick="toggleDropdown('students')">
+            <i class="fas fa-users"></i> Students
+            <i class="fas fa-chevron-down chevron" style="float: right;"></i>
+        </a>
+        <div class="dropdown-content" id="students">
+            <a href="{{ route("create_student") }}"><i class="fas fa-plus"></i> Add Student</a>
+            <a href="#"><i class="fas fa-edit"></i> Edit Student</a>
+        </div>
+    </div>
 
-        <li>
-            <i class="fas fa-chart-line me-2"></i> Result
-        </li>
-
-        <li>
-            <i class="fas fa-calendar-alt me-2"></i> Schedules
-        </li>
-    </ul>
-</nav>
+    <div class="dropdown">
+        <a href="#" onclick="toggleDropdown('tables')">
+            <i class="fas fa-table"></i> Tables
+            <i class="fas fa-chevron-down chevron" style="float: right;"></i>
+        </a>
+        <div class="dropdown-content" id="tables">
+            <a href="#"><i class="fas fa-plus"></i> Add Table</a>
+            <a href="#"><i class="fas fa-edit"></i> Edit Table</a>
+        </div>
+    </div>
+</div>

@@ -1,3 +1,3 @@
 <div class="footer">
-    © 2025 Admin Panel - All Rights Reserved
+    <p>© 2025 Admin Dashboard. All rights reserved.</p>
 </div>

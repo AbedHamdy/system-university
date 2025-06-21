@@ -16,7 +16,7 @@
                     <a class="nav-link" href="#"><i class="fas fa-user"></i> Profile</a>
                 </li>
                 <li class="nav-item">
-                    <form id="logout-form" action="{{ route('logout_super_admin') }}" method="POST" style="display: none;">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
                     <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

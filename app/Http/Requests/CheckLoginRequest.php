@@ -22,7 +22,7 @@ class CheckLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "email" => "required|email|exists:super_admins,email",
+            "email" => "required|email",
             "password" => "required|string|min:8|max:255",
             "role" => "required|in:SuperAdmin,Admin,Doctor,Student",
         ];

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 
 class AdminDashboardController extends Controller
@@ -12,7 +13,10 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        return view("admin.views.dashboard");
+        // $admin = auth()->user();
+        $admin = Admin::with("category")->find(auth()->id());
+        // dd($admin);
+        return view("admin.views.dashboard" , compact("admin"));
     }
 
     /**

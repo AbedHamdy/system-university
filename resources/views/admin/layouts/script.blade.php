@@ -1,23 +1,29 @@
 <script>
-    const menuToggle = document.getElementById('menuToggle');
-    const sidebar = document.getElementById('sidebar');
-    const studentDropdown = document.getElementById('studentDropdown');
-
-    menuToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('closed');
-    });
-
-    studentDropdown.addEventListener('click', (e) => {
-        e.stopPropagation();
-        studentDropdown.classList.toggle('open');
-    });
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!studentDropdown.contains(e.target)) {
-            studentDropdown.classList.remove('open');
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('hidden');
+            document.getElementById('main-content').classList.toggle('full');
         }
-    });
 
-    
-</script>
+        function toggleDropdown(id) {
+            const dropdowns = document.getElementsByClassName('dropdown');
+            for (let dropdown of dropdowns) {
+                if (dropdown.contains(document.getElementById(id))) {
+                    dropdown.classList.toggle('active');
+                } else {
+                    dropdown.classList.remove('active');
+                }
+            }
+            event.preventDefault();
+        }
+
+        document.addEventListener('click', function(e) {
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.querySelector('.toggle-btn');
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+                    sidebar.classList.remove('show');
+                }
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

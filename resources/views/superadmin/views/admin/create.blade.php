@@ -8,12 +8,15 @@
                 <h5 class="mb-0 text-center">Create Admin</h5>
             </div>
             <div class="card-body">
+                {{-- Success Message --}}
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('success') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
+
+                {{-- Error Messages --}}
                 @if ($errors->any())
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <ul class="mb-0">
@@ -24,6 +27,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
+
                 @if (session('error'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         {{ session('error') }}
@@ -37,28 +41,31 @@
                     <!-- Name -->
                     <div class="mb-3">
                         <label class="form-label">Name</label>
-                        <input type="text" name="name" class="form-control" required>
+                        <input type="text" name="name" required class="form-control" value="{{ old('name') }}" >
                     </div>
 
                     <!-- Email -->
                     <div class="mb-3">
                         <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" required>
+                        <input type="email" name="email" required class="form-control" value="{{ old('email') }}" >
                     </div>
 
                     <!-- Password -->
                     <div class="mb-3">
                         <label class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" required>
+                        <input type="password" name="password" required class="form-control" >
                     </div>
 
                     <!-- Category -->
                     <div class="mb-3">
                         <label class="form-label">Category</label>
-                        <select name="category_id" class="form-select" id="category-select" required>
-                            <option value="" disabled selected>Select a Category</option>
+                        <select name="category_id" class="form-select" id="category-select" >
+                            <option value="" disabled {{ old('category_id') ? '' : 'selected' }}>Select a Category</option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                <option value="{{ $category->id }}"
+                                    {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -78,6 +85,4 @@
             </div>
         </div>
     </div>
-    </script>
-
 @endsection

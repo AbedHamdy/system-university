@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\StudentManagementController;
 use App\Http\Controllers\AssignCoursesController;
 use App\Http\Controllers\Auth\GeneralPasswordController;
 use App\Http\Controllers\Auth\LoginController;
@@ -29,16 +30,23 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+// general password
 Route::get("/" , [GeneralPasswordController::class, "index"])->name("home");
-
 Route::post("/general_password" , [GeneralPasswordController::class, "check"])->name("general_password")->middleware('throttle:15,1');
 
+// login super admin
 Route::get("show_login_super_admin" , [LoginController::class, "loginSuperAdmin"])->name("show_login_superadmin");
-Route::post("/login" , [LoginController::class, "checkCredential"])->name("login_super_admin");
 
+// login admin
+Route::get("show_login_admin" , [LoginController::class, "loginAdmin"])->name("show_login_admin");
+
+Route::post("/login" , [LoginController::class, "checkCredential"])->name("login");
+
+// super  admin
 Route::middleware(['auth:SuperAdmin'])->group(function () {
     Route::get("/dashboard/super_admin" , [SuperAdminDashboardController::class, "index"])->name("dashboard_SuperAdmin");
 
+    // category
     Route::get("/all_categories" , [CategoryController::class, "index"])->name("all_categories");
     Route::get("/create/category" , [CategoryController::class, "create"])->name("create_category");
     Route::post("/store/category" , [CategoryController::class, "store"])->name("store_category");
@@ -47,6 +55,7 @@ Route::middleware(['auth:SuperAdmin'])->group(function () {
     Route::put('/update/categories/{id}', [CategoryController::class, 'update'])->name('update_category');
     Route::delete('/delete/categories/{id}', [CategoryController::class, 'destroy'])->name('delete_category');
 
+    // level & semester
     // Route::post("/create/level" , [LevelController::class, "create"])->name("create_level");
     Route::get("/create/level" , [LevelController::class, "create"])->name("create_level");
     Route::post("/store/level" , [LevelController::class, "store"])->name("store_level");
@@ -56,6 +65,7 @@ Route::middleware(['auth:SuperAdmin'])->group(function () {
     Route::get("/create/semester" , [SemesterController::class, "create"])->name("create_semester");
     Route::post("/store/semester" , [SemesterController::class, "store"])->name("store_semester");
 
+    // course
     Route::get("/all_courses" , [CourseController::class, "index"])->name("all_courses");
     Route::get("/create/course" , [CourseController::class, "create"])->name("create_course");
     // Route::get('/ajax/doctors/{categoryId}', [App\Http\Controllers\AjaxController::class, 'getDoctorsByCategory']);
@@ -64,6 +74,7 @@ Route::middleware(['auth:SuperAdmin'])->group(function () {
     Route::post("/store/course" , [CourseController::class, "store"])->name("store_course");
     Route::delete("/delete/course/{id}" , [CourseController::class, "destroy"])->name("delete_course");
 
+    // doctor
     Route::get("/all_doctors" , [DoctorManagementController::class, "index"])->name("all_doctors");
     Route::get("/create/doctor" , [DoctorManagementController::class, "create"])->name("create_doctor");
     Route::post("/store/doctor" , [DoctorManagementController::class, "store"])->name("store_doctor");
@@ -71,6 +82,7 @@ Route::middleware(['auth:SuperAdmin'])->group(function () {
     Route::put("/update/doctor/{id}" , [DoctorManagementController::class, "update"])->name("update_doctor");
     Route::delete("/delete/doctor/{id}" , [DoctorManagementController::class, "destroy"])->name("delete_doctor");
 
+    // admin
     Route::get("/all_admins" , [AdminManagementController::class, "index"])->name("all_admins");
     Route::get("/create/admin" , [AdminManagementController::class, "create"])->name("create_admin");
     Route::post("/store/admin" , [AdminManagementController::class, "store"])->name("store_admin");
@@ -78,13 +90,24 @@ Route::middleware(['auth:SuperAdmin'])->group(function () {
     Route::put('/update/admin/{id}', [AdminManagementController::class, 'update'])->name('update_admin');
     Route::delete('/delete/admin/{id}', [AdminManagementController::class, 'destroy'])->name('delete_admin');
 
+    // assign course to level
     Route::get("/select_category", [AssignCoursesController::class , "index"])->name("select_category");
     Route::get("/view/level/for/category/{id}", [AssignCoursesController::class , "show"])->name("view_level_for_category");
     Route::get('/assign/courses/for/level', [AssignCoursesController::class, 'assign'])->name('go_to_assign_courses');
     Route::post('/assign/courses', [AssignCoursesController::class, 'store'])->name('assign_courses');
 
+
 });
 
-Route::get("/dashboard/admin" , [AdminDashboardController::class, "index"])->name("dashboard_admin");
+// logout super admin
+Route::post("/logout" , [LoginController::class, "destroy"])->name("logout");
 
-Route::post("/logout" , [LoginController::class, "destroy"])->name("logout_super_admin");
+// admin
+Route::middleware(['auth:Admin'])->group(function () {
+    Route::get("/dashboard/admin", [AdminDashboardController::class, "index"])->name("dashboard_Admin");
+
+    // student
+    Route::get("/create/student", [StudentManagementController::class , "create"])->name("create_student");
+    Route::post("/store/student", [StudentManagementController::class , "store"])->name("store_student");
+});
+

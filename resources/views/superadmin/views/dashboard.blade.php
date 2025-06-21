@@ -1,5 +1,5 @@
 @extends('superadmin.layouts.app')
-@section('title', 'Dashboard')
+@section('title', 'Dashboard super admin')
 
 @section('content')
 <div class="row mt-2 g-4 content-wrapper"> <!-- g-3 تضيف مسافات بين الأعمدة والصفوف -->

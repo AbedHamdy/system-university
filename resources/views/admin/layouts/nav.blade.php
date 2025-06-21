@@ -1,9 +1,6 @@
-<!-- Navbar -->
-    <div class="navbar">
-        <button class="login-btn">Logout</button>
-        <div class="menu-toggle" id="menuToggle" title="Menu">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
+<div class="navbar">
+    <div class="toggle-btn" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
     </div>
+    <button class="logout-btn">Logout</button>
+</div>

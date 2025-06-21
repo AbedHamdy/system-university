@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CheckLoginRequest;
+use App\Models\Admin;
+use App\Models\Doctor;
+use App\Models\Student;
+use App\Models\SuperAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Login Super Admin.
      */
     public function loginSuperAdmin()
     {
@@ -20,7 +24,20 @@ class LoginController extends Controller
     public function checkCredential(CheckLoginRequest $request)
     {
         $data = $request->validated();
-        // dd($data["role"]);
+
+        $model = match ($data['role']) {
+            'SuperAdmin' => SuperAdmin::class,
+            'Admin' => Admin::class,
+            'Doctor' => Doctor::class,
+            'Student' => Student::class,
+            // default => null,
+        };
+
+        if (!$model::where('email', $data['email'])->exists())
+        {
+            return redirect()->back()->withErrors(['email' => 'This email does not exist .']);
+        }
+        // dd($data);
         if(Auth::guard($data["role"])->attempt(
 [
                 'email' => $data['email'],
@@ -28,13 +45,20 @@ class LoginController extends Controller
             ]))
         {
             $user = Auth::guard($data["role"])->user();
-            // dd($user);
+            // dd("dashboard_".$data['role']);
             return redirect()->route("dashboard_".$data['role']);
         }
         // dd("Invalid credentials");
         return redirect()->back()->with(['error' => 'Invalid password']);
     }
 
+    /**
+     * Login Admin.
+     */
+    public function loginAdmin()
+    {
+        return view("admin.views.login_admin");
+    }
     /**
      * Remove the specified resource from storage.
      */
