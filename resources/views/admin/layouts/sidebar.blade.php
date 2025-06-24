@@ -8,7 +8,7 @@
         </a>
         <div class="dropdown-content" id="students">
             <a href="{{ route("create_student") }}"><i class="fas fa-plus"></i> Add Student</a>
-            <a href="#"><i class="fas fa-edit"></i> Edit Student</a>
+            <a href=""><i class="fas fa-edit"></i> Edit Student</a>
         </div>
     </div>
 

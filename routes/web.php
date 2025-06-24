@@ -5,7 +5,9 @@ use App\Http\Controllers\Admin\StudentManagementController;
 use App\Http\Controllers\AssignCoursesController;
 use App\Http\Controllers\Auth\GeneralPasswordController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\SuperAdmin\ActiveSemesterController;
 use App\Http\Controllers\SuperAdmin\AdminManagementController;
+use App\Http\Controllers\SuperAdmin\AssignCorsesToSemesterController;
 use App\Http\Controllers\SuperAdmin\CategoryController;
 use App\Http\Controllers\SuperAdmin\CourseController;
 use App\Http\Controllers\SuperAdmin\DoctorManagementController;
@@ -96,7 +98,16 @@ Route::middleware(['auth:SuperAdmin'])->group(function () {
     Route::get('/assign/courses/for/level', [AssignCoursesController::class, 'assign'])->name('go_to_assign_courses');
     Route::post('/assign/courses', [AssignCoursesController::class, 'store'])->name('assign_courses');
 
+    // assign courses to semester
+    Route::get("/select/category/to/select/level", [AssignCorsesToSemesterController::class, "index"])->name("choose_category_to_choose_level");
+    // Route::get("/select/level/to/select/semester", [AssignCorsesToSemesterController::class, "show"])->name("choose_level_to_choose_semester");
+    Route::get('/choose_level_to_choose_semester/{category_id}', [AssignCorsesToSemesterController::class, 'show'])->name('choose_level_to_choose_semester');
+    Route::get("/select/courses/to/semester", [AssignCorsesToSemesterController::class, "assign"])->name("assign_courses_to_semester");
+    Route::post("/assign/courses/to/semester", [AssignCorsesToSemesterController::class, "store"])->name("store_courses_to_semester");
 
+    // active semester
+    Route::get("/active/semester", [ActiveSemesterController::class, "index"])->name("active_semester");
+    Route::post("/semesters/activate", [ActiveSemesterController::class, "store"])->name("store_active_semester");
 });
 
 // logout super admin
@@ -109,5 +120,8 @@ Route::middleware(['auth:Admin'])->group(function () {
     // student
     Route::get("/create/student", [StudentManagementController::class , "create"])->name("create_student");
     Route::post("/store/student", [StudentManagementController::class , "store"])->name("store_student");
+    // Route::get("/edit/student/{id}", [StudentManagementController::class , "edit"])->name("edit_students");
+    // Route::put("/update/student/{id}", [StudentManagementController::class , "update"])->name("update_student");
+
 });
 

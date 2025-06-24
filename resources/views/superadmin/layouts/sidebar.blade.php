@@ -13,11 +13,6 @@
             </div>
         </div>
     </div>
-    {{-- <div class="sidebar-item">
-        <a href="{{ route('dashboard_SuperAdmin') }}" class="d-flex align-items-center">
-            <i class="fas fa-tachometer-alt me-2"></i> <span>Dashboard</span>
-        </a>
-    </div> --}}
 
     <!-- Category Dropdown -->
     <div class="sidebar-item">
@@ -66,7 +61,7 @@
         </a>
         <div class="collapse" id="courseSubmenu" data-bs-parent="#sidebar">
             <div class="submenu">
-                <a href="{{ route("all_courses") }}">
+                <a href="{{ route('all_courses') }}">
                     <i class="fas fa-list"></i> All Courses
                 </a>
                 <a href="{{ route('create_course') }}">
@@ -84,25 +79,48 @@
         </a>
         <div class="collapse" id="adminSubmenu" data-bs-parent="#sidebar">
             <div class="submenu">
-                <a href="{{ route("all_admins") }}">
+                <a href="{{ route('all_admins') }}">
                     <i class="fas fa-list"></i> All Admins
                 </a>
-                <a href="{{ route("create_admin") }}">
+                <a href="{{ route('create_admin') }}">
                     <i class="fas fa-plus"></i> Create Admin
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- Select Category and Assign Courses to Levels -->
+    <!-- Semester Dropdown -->
     <div class="sidebar-item">
-        <a href="{{ route("select_category") }}" class="d-flex align-items-center">
+        <a href="#semesterSubmenu" data-bs-toggle="collapse" class="dropdown-toggle" aria-expanded="false">
+            <i class="fas fa-calendar-alt"></i> Semester
+            <i class="fas fa-chevron-down ms-auto"></i>
+        </a>
+        <div class="collapse" id="semesterSubmenu" data-bs-parent="#sidebar">
+            <div class="submenu">
+                <a href="{{ route('active_semester') }}">
+                    <i class="fas fa-toggle-on"></i> Set Active Semester
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assign Courses -->
+    <div class="sidebar-item">
+        <a href="{{ route('select_category') }}" class="d-flex align-items-center">
             <i class="fas fa-layer-group me-2"></i>
             <span>Assign Courses</span>
         </a>
     </div>
 
-    <!-- Statistics Link -->
+    <!-- Assign Courses to Semester -->
+    <div class="sidebar-item">
+        <a href="{{ route('choose_category_to_choose_level') }}" class="d-flex align-items-center">
+            <i class="fas fa-layer-group me-2"></i>
+            <span>Assign Courses To Semester</span>
+        </a>
+    </div>
+
+    <!-- Statistics -->
     <a href="#">
         <i class="fas fa-chart-bar"></i> Statistics
     </a>

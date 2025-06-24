@@ -49,7 +49,7 @@ class AssignCoursesController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-   public function assign(ValidateLevelCategoryRequest $request)
+    public function assign(ValidateLevelCategoryRequest $request)
     {
         $data = $request->validated();
 
@@ -65,10 +65,10 @@ class AssignCoursesController extends Controller
             ->whereNull('level_id')
             ->get();
 
-        if($courses->isEmpty())
-        {
-            return redirect()->route('create_course')->with('error', 'All courses are already assigned to this level , please create a new course.');
-        }
+        // if($courses->isEmpty())
+        // {
+        //     return redirect()->route('create_course')->with('error', 'All courses are already assigned to this level , please create a new course.');
+        // }
         return view('superadmin.views.assign.add_courses', compact('level', 'category' , "courses"));
     }
 
@@ -85,13 +85,13 @@ class AssignCoursesController extends Controller
             $course = Course::whereIn('id', $data['courses'])->update([
                 'level_id' => $data['level_id']
             ]);
-            if(!$course)
-            {
-                return redirect()->back()->with('error', 'Failed to assign course');
-            }
+            // if(!$course)
+            // {
+            //     return redirect()->back()->with('error', 'Failed to assign course');
+            // }
         }
 
-        return redirect()->back()->with('success', 'Courses assigned successfully');
+        return redirect()->route("select_category")->with('success', 'Courses assigned successfully');
     }
 
     /**

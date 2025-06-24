@@ -53,13 +53,22 @@ class StudentManagementController extends Controller
         // $category_id = $admin->category_id;
         $data["admin_id"] = $admin->id;
         $data['category_id'] = $admin->category_id;
+
         $level = Level::where('category_id', $data['category_id'])
             ->where('number_level', 1)->first();
         if (!$level)
         {
-            return redirect()->back()->with('error', 'No level found for this category.');
+            return redirect()->back()->with('error', 'No level found for this category , please try again.');
         }
+
+        $semester = $level->semesters()->where('semester_number', 1)->first();
+        if (!$semester)
+        {
+            return redirect()->back()->with('error', 'No active semester found for this level , please try again.');
+        }
+
         $data['level_id'] = $level->id;
+        $data['semester_id'] = $semester->id;
         $data["email"] = $data["code"] . "@unv.edu.eg";
         // $data["fees"] = 0;
         // dd($data);
@@ -148,9 +157,15 @@ class StudentManagementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $student = Student::find($id);
+        if (!$student)
+        {
+            return redirect()->back()->with('error', 'Student not found.');
+        }
+
+        return view("admin.views.student.edit" , compact("student"));
     }
 
     /**

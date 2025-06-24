@@ -40,9 +40,9 @@ class LevelController extends Controller
         }
 
         $user = auth()->user();
-
+        
+        DB::beginTransaction();
         try {
-            DB::beginTransaction();
 
             $createdLevels = [];
 

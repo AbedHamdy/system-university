@@ -20,9 +20,9 @@ class Level extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function semester()
+    public function semesters()
     {
-        return $this->hasOne(Semester::class);
+        return $this->hasMany(Semester::class);
     }
 
     public function courses()

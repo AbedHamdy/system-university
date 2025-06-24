@@ -21,6 +21,7 @@ class Student extends Model
         "level_id",
         "fees",
         "category_id",
-        "admin_id"
+        "admin_id",
+        "semester_id",
     ];
 }

@@ -2,7 +2,7 @@
 @section('title', 'Profile')
 
 @section('content')
-    <div class="profile-wrapper">
+    <div class="profile-wrapper" style="background: #fff; min-height: calc(100vh - 100px); padding: 30px 20px; display: flex; justify-content: center; align-items: center;">
         <div class="admin-card">
             {{-- صورة الأدمن --}}
             <img src="{{ asset('images/admins/' . $admin->image) }}" alt="Admin Image">
